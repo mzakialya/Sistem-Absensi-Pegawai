@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("data_types/add");
+$can_edit = ACL::is_allowed("data_types/edit");
+$can_view = ACL::is_allowed("data_types/view");
+$can_delete = ACL::is_allowed("data_types/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -52,7 +59,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-name">
                                         <th class="title"> Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="name" 
@@ -62,7 +69,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['name']; ?> 
                                             </span>
                                         </td>
@@ -70,7 +77,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-slug">
                                         <th class="title"> Slug: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['slug']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['slug']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="slug" 
@@ -80,7 +87,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['slug']; ?> 
                                             </span>
                                         </td>
@@ -88,7 +95,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-display_name_singular">
                                         <th class="title"> Display Name Singular: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['display_name_singular']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['display_name_singular']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="display_name_singular" 
@@ -98,7 +105,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['display_name_singular']; ?> 
                                             </span>
                                         </td>
@@ -106,7 +113,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-display_name_plural">
                                         <th class="title"> Display Name Plural: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['display_name_plural']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['display_name_plural']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="display_name_plural" 
@@ -116,7 +123,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['display_name_plural']; ?> 
                                             </span>
                                         </td>
@@ -124,7 +131,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-icon">
                                         <th class="title"> Icon: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['icon']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['icon']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="icon" 
@@ -134,7 +141,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['icon']; ?> 
                                             </span>
                                         </td>
@@ -142,7 +149,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-model_name">
                                         <th class="title"> Model Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['model_name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['model_name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="model_name" 
@@ -152,7 +159,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['model_name']; ?> 
                                             </span>
                                         </td>
@@ -160,7 +167,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-policy_name">
                                         <th class="title"> Policy Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['policy_name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['policy_name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="policy_name" 
@@ -170,7 +177,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['policy_name']; ?> 
                                             </span>
                                         </td>
@@ -178,7 +185,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-controller">
                                         <th class="title"> Controller: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['controller']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['controller']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="controller" 
@@ -188,7 +195,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['controller']; ?> 
                                             </span>
                                         </td>
@@ -196,7 +203,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-description">
                                         <th class="title"> Description: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['description']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['description']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="description" 
@@ -206,7 +213,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['description']; ?> 
                                             </span>
                                         </td>
@@ -214,7 +221,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-generate_permissions">
                                         <th class="title"> Generate Permissions: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['generate_permissions']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['generate_permissions']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="generate_permissions" 
@@ -224,7 +231,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['generate_permissions']; ?> 
                                             </span>
                                         </td>
@@ -232,7 +239,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-server_side">
                                         <th class="title"> Server Side: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['server_side']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['server_side']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="server_side" 
@@ -242,7 +249,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['server_side']; ?> 
                                             </span>
                                         </td>
@@ -250,7 +257,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-details">
                                         <th class="title"> Details: </th>
                                         <td class="value">
-                                            <span  data-pk="<?php echo $data['id'] ?>" 
+                                            <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="details" 
                                                 data-title="Enter Details" 
@@ -259,7 +266,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="textarea" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['details']; ?> 
                                             </span>
                                         </td>
@@ -267,7 +274,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-created_at">
                                         <th class="title"> Created At: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['created_at']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['created_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="created_at" 
@@ -277,7 +284,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['created_at']; ?> 
                                             </span>
                                         </td>
@@ -285,7 +292,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-updated_at">
                                         <th class="title"> Updated At: </th>
                                         <td class="value">
-                                            <span  data-flatpickr="{ minDate: '', maxDate: ''}" 
+                                            <span <?php if($can_edit){ ?> data-flatpickr="{ minDate: '', maxDate: ''}" 
                                                 data-value="<?php echo $data['updated_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("data_types/editfield/" . urlencode($data['id'])); ?>" 
@@ -296,7 +303,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="flatdatetimepicker" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['updated_at']; ?> 
                                             </span>
                                         </td>
@@ -333,12 +340,16 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("data_types/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
+                                                <?php if($can_delete){ ?>
                                                 <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("data_types/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                     <i class="fa fa-times"></i> Delete
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

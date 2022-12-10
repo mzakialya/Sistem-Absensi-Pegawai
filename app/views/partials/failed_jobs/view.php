@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("failed_jobs/add");
+$can_edit = ACL::is_allowed("failed_jobs/edit");
+$can_view = ACL::is_allowed("failed_jobs/view");
+$can_delete = ACL::is_allowed("failed_jobs/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -52,7 +59,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-uuid">
                                         <th class="title"> Uuid: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['uuid']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['uuid']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("failed_jobs/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="uuid" 
@@ -62,7 +69,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['uuid']; ?> 
                                             </span>
                                         </td>
@@ -70,7 +77,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-connection">
                                         <th class="title"> Connection: </th>
                                         <td class="value">
-                                            <span  data-pk="<?php echo $data['id'] ?>" 
+                                            <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("failed_jobs/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="connection" 
                                                 data-title="Enter Connection" 
@@ -79,7 +86,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="textarea" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['connection']; ?> 
                                             </span>
                                         </td>
@@ -87,7 +94,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-queue">
                                         <th class="title"> Queue: </th>
                                         <td class="value">
-                                            <span  data-pk="<?php echo $data['id'] ?>" 
+                                            <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("failed_jobs/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="queue" 
                                                 data-title="Enter Queue" 
@@ -96,7 +103,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="textarea" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['queue']; ?> 
                                             </span>
                                         </td>
@@ -104,7 +111,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-payload">
                                         <th class="title"> Payload: </th>
                                         <td class="value">
-                                            <span  data-pk="<?php echo $data['id'] ?>" 
+                                            <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("failed_jobs/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="payload" 
                                                 data-title="Enter Payload" 
@@ -113,7 +120,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="textarea" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['payload']; ?> 
                                             </span>
                                         </td>
@@ -121,7 +128,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-exception">
                                         <th class="title"> Exception: </th>
                                         <td class="value">
-                                            <span  data-pk="<?php echo $data['id'] ?>" 
+                                            <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("failed_jobs/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="exception" 
                                                 data-title="Enter Exception" 
@@ -130,7 +137,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="textarea" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['exception']; ?> 
                                             </span>
                                         </td>
@@ -171,12 +178,16 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("failed_jobs/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
+                                                <?php if($can_delete){ ?>
                                                 <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("failed_jobs/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                     <i class="fa fa-times"></i> Delete
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

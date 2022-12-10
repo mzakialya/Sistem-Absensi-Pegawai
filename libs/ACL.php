@@ -13,7 +13,9 @@ class ACL
 	 * Use "*" to grant all access right to particular user role
 	 * @var array
 	 */
-	public static $role_pages = '*';
+	public static $role_pages = array(
+			
+		);
 
 	/**
 	 * Current user role name

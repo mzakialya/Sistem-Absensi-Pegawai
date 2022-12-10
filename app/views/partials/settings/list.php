@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("settings/add");
+$can_edit = ACL::is_allowed("settings/edit");
+$can_view = ACL::is_allowed("settings/view");
+$can_delete = ACL::is_allowed("settings/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "list-page-" . random_str();
@@ -26,10 +33,12 @@ $show_pagination = $this->show_pagination;
                     <h4 class="record-title">Settings</h4>
                 </div>
                 <div class="col-sm-3 ">
+                    <?php if($can_add){ ?>
                     <a  class="btn btn btn-primary my-1" href="<?php print_link("settings/add") ?>">
                         <i class="fa fa-plus"></i>                              
                         Add New Settings 
                     </a>
+                    <?php } ?>
                 </div>
                 <div class="col-sm-4 ">
                     <form  class="search" action="<?php print_link('settings'); ?>" method="get">
@@ -107,12 +116,14 @@ $show_pagination = $this->show_pagination;
                                     <table class="table  table-striped table-sm text-left">
                                         <thead class="table-header bg-light">
                                             <tr>
+                                                <?php if($can_delete){ ?>
                                                 <th class="td-checkbox">
                                                     <label class="custom-control custom-checkbox custom-control-inline">
                                                         <input class="toggle-check-all custom-control-input" type="checkbox" />
                                                         <span class="custom-control-label"></span>
                                                     </label>
                                                 </th>
+                                                <?php } ?>
                                                 <th class="td-sno">#</th>
                                                 <th  class="td-id"> Id</th>
                                                 <th  class="td-key"> Key</th>
@@ -137,16 +148,18 @@ $show_pagination = $this->show_pagination;
                                             $counter++;
                                             ?>
                                             <tr>
+                                                <?php if($can_delete){ ?>
                                                 <th class=" td-checkbox">
                                                     <label class="custom-control custom-checkbox custom-control-inline">
                                                         <input class="optioncheck custom-control-input" name="optioncheck[]" value="<?php echo $data['id'] ?>" type="checkbox" />
                                                             <span class="custom-control-label"></span>
                                                         </label>
                                                     </th>
+                                                    <?php } ?>
                                                     <th class="td-sno"><?php echo $counter; ?></th>
                                                     <td class="td-id"><a href="<?php print_link("settings/view/$data[id]") ?>"><?php echo $data['id']; ?></a></td>
                                                     <td class="td-key">
-                                                        <span  data-value="<?php echo $data['key']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['key']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("settings/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="key" 
@@ -156,12 +169,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['key']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-display_name">
-                                                        <span  data-value="<?php echo $data['display_name']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['display_name']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("settings/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="display_name" 
@@ -171,12 +184,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['display_name']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-value">
-                                                        <span  data-pk="<?php echo $data['id'] ?>" 
+                                                        <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("settings/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="value" 
                                                             data-title="Enter Value" 
@@ -185,12 +198,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="textarea" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['value']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-details">
-                                                        <span  data-pk="<?php echo $data['id'] ?>" 
+                                                        <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("settings/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="details" 
                                                             data-title="Enter Details" 
@@ -199,12 +212,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="textarea" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['details']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-type">
-                                                        <span  data-value="<?php echo $data['type']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['type']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("settings/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="type" 
@@ -214,12 +227,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['type']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-order">
-                                                        <span  data-value="<?php echo $data['order']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['order']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("settings/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="order" 
@@ -229,12 +242,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="number" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['order']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-group">
-                                                        <span  data-value="<?php echo $data['group']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['group']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("settings/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="group" 
@@ -244,21 +257,27 @@ $show_pagination = $this->show_pagination;
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['group']; ?> 
                                                         </span>
                                                     </td>
                                                     <th class="td-btn">
+                                                        <?php if($can_view){ ?>
                                                         <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("settings/view/$rec_id"); ?>">
                                                             <i class="fa fa-eye"></i> View
                                                         </a>
+                                                        <?php } ?>
+                                                        <?php if($can_edit){ ?>
                                                         <a class="btn btn-sm btn-info has-tooltip" title="Edit This Record" href="<?php print_link("settings/edit/$rec_id"); ?>">
                                                             <i class="fa fa-edit"></i> Edit
                                                         </a>
+                                                        <?php } ?>
+                                                        <?php if($can_delete){ ?>
                                                         <a class="btn btn-sm btn-danger has-tooltip record-delete-btn" title="Delete this record" href="<?php print_link("settings/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                             <i class="fa fa-times"></i>
                                                             Delete
                                                         </a>
+                                                        <?php } ?>
                                                     </th>
                                                 </tr>
                                                 <?php 
@@ -288,9 +307,11 @@ $show_pagination = $this->show_pagination;
                                         <div class="row justify-content-center">    
                                             <div class="col-md-auto justify-content-center">    
                                                 <div class="p-3 d-flex justify-content-between">    
+                                                    <?php if($can_delete){ ?>
                                                     <button data-prompt-msg="Are you sure you want to delete these records?" data-display-style="modal" data-url="<?php print_link("settings/delete/{sel_ids}/?csrf_token=$csrf_token&redirect=$current_page"); ?>" class="btn btn-sm btn-danger btn-delete-selected d-none">
                                                         <i class="fa fa-times"></i> Delete Selected
                                                     </button>
+                                                    <?php } ?>
                                                     <div class="dropup export-btn-holder mx-1">
                                                         <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fa fa-save"></i> Export

@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("personal_access_tokens/add");
+$can_edit = ACL::is_allowed("personal_access_tokens/edit");
+$can_view = ACL::is_allowed("personal_access_tokens/view");
+$can_delete = ACL::is_allowed("personal_access_tokens/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -52,7 +59,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-tokenable_type">
                                         <th class="title"> Tokenable Type: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['tokenable_type']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['tokenable_type']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="tokenable_type" 
@@ -62,7 +69,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['tokenable_type']; ?> 
                                             </span>
                                         </td>
@@ -70,7 +77,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-tokenable_id">
                                         <th class="title"> Tokenable Id: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['tokenable_id']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['tokenable_id']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="tokenable_id" 
@@ -80,7 +87,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['tokenable_id']; ?> 
                                             </span>
                                         </td>
@@ -88,7 +95,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-name">
                                         <th class="title"> Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="name" 
@@ -98,7 +105,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['name']; ?> 
                                             </span>
                                         </td>
@@ -106,7 +113,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-token">
                                         <th class="title"> Token: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['token']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['token']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="token" 
@@ -116,7 +123,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['token']; ?> 
                                             </span>
                                         </td>
@@ -124,7 +131,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-abilities">
                                         <th class="title"> Abilities: </th>
                                         <td class="value">
-                                            <span  data-pk="<?php echo $data['id'] ?>" 
+                                            <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="abilities" 
                                                 data-title="Enter Abilities" 
@@ -133,7 +140,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="textarea" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['abilities']; ?> 
                                             </span>
                                         </td>
@@ -141,7 +148,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-last_used_at">
                                         <th class="title"> Last Used At: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['last_used_at']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['last_used_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="last_used_at" 
@@ -151,7 +158,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['last_used_at']; ?> 
                                             </span>
                                         </td>
@@ -159,7 +166,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-created_at">
                                         <th class="title"> Created At: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['created_at']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['created_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="created_at" 
@@ -169,7 +176,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['created_at']; ?> 
                                             </span>
                                         </td>
@@ -177,7 +184,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-updated_at">
                                         <th class="title"> Updated At: </th>
                                         <td class="value">
-                                            <span  data-flatpickr="{ minDate: '', maxDate: ''}" 
+                                            <span <?php if($can_edit){ ?> data-flatpickr="{ minDate: '', maxDate: ''}" 
                                                 data-value="<?php echo $data['updated_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("personal_access_tokens/editfield/" . urlencode($data['id'])); ?>" 
@@ -188,7 +195,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="flatdatetimepicker" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['updated_at']; ?> 
                                             </span>
                                         </td>
@@ -225,12 +232,16 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("personal_access_tokens/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
+                                                <?php if($can_delete){ ?>
                                                 <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("personal_access_tokens/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                     <i class="fa fa-times"></i> Delete
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

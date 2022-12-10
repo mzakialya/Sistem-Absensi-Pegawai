@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("permission_role/add");
+$can_edit = ACL::is_allowed("permission_role/edit");
+$can_view = ACL::is_allowed("permission_role/view");
+$can_delete = ACL::is_allowed("permission_role/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -48,7 +55,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-permission_id">
                                         <th class="title"> Permission Id: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['permission_id']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['permission_id']; ?>" 
                                                 data-pk="<?php echo $data['permission_id'] ?>" 
                                                 data-url="<?php print_link("permission_role/editfield/" . urlencode($data['permission_id'])); ?>" 
                                                 data-name="permission_id" 
@@ -58,7 +65,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['permission_id']; ?> 
                                             </span>
                                         </td>
@@ -66,7 +73,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-role_id">
                                         <th class="title"> Role Id: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['role_id']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['role_id']; ?>" 
                                                 data-pk="<?php echo $data['permission_id'] ?>" 
                                                 data-url="<?php print_link("permission_role/editfield/" . urlencode($data['permission_id'])); ?>" 
                                                 data-name="role_id" 
@@ -76,7 +83,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['role_id']; ?> 
                                             </span>
                                         </td>
@@ -113,12 +120,16 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("permission_role/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
+                                                <?php if($can_delete){ ?>
                                                 <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("permission_role/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                     <i class="fa fa-times"></i> Delete
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("password_resets/add");
+$can_edit = ACL::is_allowed("password_resets/edit");
+$can_view = ACL::is_allowed("password_resets/view");
+$can_delete = ACL::is_allowed("password_resets/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "list-page-" . random_str();
@@ -26,10 +33,12 @@ $show_pagination = $this->show_pagination;
                     <h4 class="record-title">Password Resets</h4>
                 </div>
                 <div class="col-sm-3 ">
+                    <?php if($can_add){ ?>
                     <a  class="btn btn btn-primary my-1" href="<?php print_link("password_resets/add") ?>">
                         <i class="fa fa-plus"></i>                              
                         Add New Password Resets 
                     </a>
+                    <?php } ?>
                 </div>
                 <div class="col-sm-4 ">
                     <form  class="search" action="<?php print_link('password_resets'); ?>" method="get">
@@ -128,7 +137,7 @@ $show_pagination = $this->show_pagination;
                                                 <th class="td-sno"><?php echo $counter; ?></th>
                                                 <td class="td-email"><a href="<?php print_link("mailto:$data[email]") ?>"><?php echo $data['email']; ?></a></td>
                                                 <td class="td-token">
-                                                    <span  data-value="<?php echo $data['token']; ?>" 
+                                                    <span <?php if($can_edit){ ?> data-value="<?php echo $data['token']; ?>" 
                                                         data-name="token" 
                                                         data-title="Enter Token" 
                                                         data-placement="left" 
@@ -136,12 +145,12 @@ $show_pagination = $this->show_pagination;
                                                         data-type="text" 
                                                         data-mode="popover" 
                                                         data-showbuttons="left" 
-                                                        class="is-editable" >
+                                                        class="is-editable" <?php } ?>>
                                                         <?php echo $data['token']; ?> 
                                                     </span>
                                                 </td>
                                                 <td class="td-created_at">
-                                                    <span  data-value="<?php echo $data['created_at']; ?>" 
+                                                    <span <?php if($can_edit){ ?> data-value="<?php echo $data['created_at']; ?>" 
                                                         data-name="created_at" 
                                                         data-title="Enter Created At" 
                                                         data-placement="left" 
@@ -149,7 +158,7 @@ $show_pagination = $this->show_pagination;
                                                         data-type="text" 
                                                         data-mode="popover" 
                                                         data-showbuttons="left" 
-                                                        class="is-editable" >
+                                                        class="is-editable" <?php } ?>>
                                                         <?php echo $data['created_at']; ?> 
                                                     </span>
                                                 </td>

@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("password_resets/add");
+$can_edit = ACL::is_allowed("password_resets/edit");
+$can_view = ACL::is_allowed("password_resets/view");
+$can_delete = ACL::is_allowed("password_resets/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -48,7 +55,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-email">
                                         <th class="title"> Email: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['email']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['email']; ?>" 
                                                 data-name="email" 
                                                 data-title="Enter Email" 
                                                 data-placement="left" 
@@ -56,7 +63,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="email" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['email']; ?> 
                                             </span>
                                         </td>
@@ -64,7 +71,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-token">
                                         <th class="title"> Token: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['token']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['token']; ?>" 
                                                 data-name="token" 
                                                 data-title="Enter Token" 
                                                 data-placement="left" 
@@ -72,7 +79,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['token']; ?> 
                                             </span>
                                         </td>
@@ -80,7 +87,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-created_at">
                                         <th class="title"> Created At: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['created_at']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['created_at']; ?>" 
                                                 data-name="created_at" 
                                                 data-title="Enter Created At" 
                                                 data-placement="left" 
@@ -88,7 +95,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['created_at']; ?> 
                                             </span>
                                         </td>

@@ -1,9 +1,9 @@
 <?php 
 //check if current user role is allowed access to the pages
-$can_add = ACL::is_allowed("departments/add");
-$can_edit = ACL::is_allowed("departments/edit");
-$can_view = ACL::is_allowed("departments/view");
-$can_delete = ACL::is_allowed("departments/delete");
+$can_add = ACL::is_allowed("role_permissions/add");
+$can_edit = ACL::is_allowed("role_permissions/edit");
+$can_view = ACL::is_allowed("role_permissions/view");
+$can_delete = ACL::is_allowed("role_permissions/delete");
 ?>
 <?php
 $comp_model = new SharedController;
@@ -30,18 +30,18 @@ $show_pagination = $this->show_pagination;
         <div class="container-fluid">
             <div class="row ">
                 <div class="col ">
-                    <h4 class="record-title">Departments</h4>
+                    <h4 class="record-title">Role Permissions</h4>
                 </div>
                 <div class="col-sm-3 ">
                     <?php if($can_add){ ?>
-                    <a  class="btn btn btn-primary my-1" href="<?php print_link("departments/add") ?>">
+                    <a  class="btn btn btn-primary my-1" href="<?php print_link("role_permissions/add") ?>">
                         <i class="fa fa-plus"></i>                              
-                        Add New Departments 
+                        Add New Role Permissions 
                     </a>
                     <?php } ?>
                 </div>
                 <div class="col-sm-4 ">
-                    <form  class="search" action="<?php print_link('departments'); ?>" method="get">
+                    <form  class="search" action="<?php print_link('role_permissions'); ?>" method="get">
                         <div class="input-group">
                             <input value="<?php echo get_value('search'); ?>" class="form-control" type="text" name="search"  placeholder="Search" />
                                 <div class="input-group-append">
@@ -63,7 +63,7 @@ $show_pagination = $this->show_pagination;
                                     if(!empty($field_name)){
                                     ?>
                                     <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="<?php print_link('departments'); ?>">
+                                        <a class="text-decoration-none" href="<?php print_link('role_permissions'); ?>">
                                             <i class="fa fa-angle-left"></i>
                                         </a>
                                     </li>
@@ -80,7 +80,7 @@ $show_pagination = $this->show_pagination;
                                     if(get_value("search")){
                                     ?>
                                     <li class="breadcrumb-item">
-                                        <a class="text-decoration-none" href="<?php print_link('departments'); ?>">
+                                        <a class="text-decoration-none" href="<?php print_link('role_permissions'); ?>">
                                             <i class="fa fa-angle-left"></i>
                                         </a>
                                     </li>
@@ -111,7 +111,7 @@ $show_pagination = $this->show_pagination;
                     <div class="col-md-12 comp-grid">
                         <?php $this :: display_page_errors(); ?>
                         <div  class=" animated fadeIn page-content">
-                            <div id="departments-list-records">
+                            <div id="role_permissions-list-records">
                                 <div id="page-report-body" class="table-responsive">
                                     <table class="table  table-striped table-sm text-left">
                                         <thead class="table-header bg-light">
@@ -125,11 +125,10 @@ $show_pagination = $this->show_pagination;
                                                 </th>
                                                 <?php } ?>
                                                 <th class="td-sno">#</th>
-                                                <th  class="td-id"> Id</th>
-                                                <th  class="td-name"> Name</th>
-                                                <th  class="td-slug"> Slug</th>
-                                                <th  class="td-created_at"> Created At</th>
-                                                <th  class="td-updated_at"> Updated At</th>
+                                                <th  class="td-permission_id"> Permission Id</th>
+                                                <th  class="td-role_id"> Role Id</th>
+                                                <th  class="td-page_name"> Page Name</th>
+                                                <th  class="td-action_name"> Action Name</th>
                                                 <th class="td-btn"></th>
                                             </tr>
                                         </thead>
@@ -141,94 +140,78 @@ $show_pagination = $this->show_pagination;
                                             <?php
                                             $counter = 0;
                                             foreach($records as $data){
-                                            $rec_id = (!empty($data['id']) ? urlencode($data['id']) : null);
+                                            $rec_id = (!empty($data['permission_id']) ? urlencode($data['permission_id']) : null);
                                             $counter++;
                                             ?>
                                             <tr>
                                                 <?php if($can_delete){ ?>
                                                 <th class=" td-checkbox">
                                                     <label class="custom-control custom-checkbox custom-control-inline">
-                                                        <input class="optioncheck custom-control-input" name="optioncheck[]" value="<?php echo $data['id'] ?>" type="checkbox" />
+                                                        <input class="optioncheck custom-control-input" name="optioncheck[]" value="<?php echo $data['permission_id'] ?>" type="checkbox" />
                                                             <span class="custom-control-label"></span>
                                                         </label>
                                                     </th>
                                                     <?php } ?>
                                                     <th class="td-sno"><?php echo $counter; ?></th>
-                                                    <td class="td-id"><a href="<?php print_link("departments/view/$data[id]") ?>"><?php echo $data['id']; ?></a></td>
-                                                    <td class="td-name">
-                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['name']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("departments/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="name" 
-                                                            data-title="Enter Name" 
+                                                    <td class="td-permission_id"><a href="<?php print_link("role_permissions/view/$data[permission_id]") ?>"><?php echo $data['permission_id']; ?></a></td>
+                                                    <td class="td-role_id">
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['role_id']; ?>" 
+                                                            data-pk="<?php echo $data['permission_id'] ?>" 
+                                                            data-url="<?php print_link("role_permissions/editfield/" . urlencode($data['permission_id'])); ?>" 
+                                                            data-name="role_id" 
+                                                            data-title="Enter Role Id" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="number" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" <?php } ?>>
+                                                            <?php echo $data['role_id']; ?> 
+                                                        </span>
+                                                    </td>
+                                                    <td class="td-page_name">
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['page_name']; ?>" 
+                                                            data-pk="<?php echo $data['permission_id'] ?>" 
+                                                            data-url="<?php print_link("role_permissions/editfield/" . urlencode($data['permission_id'])); ?>" 
+                                                            data-name="page_name" 
+                                                            data-title="Enter Page Name" 
                                                             data-placement="left" 
                                                             data-toggle="click" 
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
-                                                            <?php echo $data['name']; ?> 
+                                                            <?php echo $data['page_name']; ?> 
                                                         </span>
                                                     </td>
-                                                    <td class="td-slug">
-                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['slug']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("departments/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="slug" 
-                                                            data-title="Enter Slug" 
+                                                    <td class="td-action_name">
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['action_name']; ?>" 
+                                                            data-pk="<?php echo $data['permission_id'] ?>" 
+                                                            data-url="<?php print_link("role_permissions/editfield/" . urlencode($data['permission_id'])); ?>" 
+                                                            data-name="action_name" 
+                                                            data-title="Enter Action Name" 
                                                             data-placement="left" 
                                                             data-toggle="click" 
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
                                                             class="is-editable" <?php } ?>>
-                                                            <?php echo $data['slug']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-created_at">
-                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['created_at']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("departments/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="created_at" 
-                                                            data-title="Enter Created At" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="text" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" <?php } ?>>
-                                                            <?php echo $data['created_at']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-updated_at">
-                                                        <span <?php if($can_edit){ ?> data-flatpickr="{ minDate: '', maxDate: ''}" 
-                                                            data-value="<?php echo $data['updated_at']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("departments/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="updated_at" 
-                                                            data-title="Enter Updated At" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="flatdatetimepicker" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" <?php } ?>>
-                                                            <?php echo $data['updated_at']; ?> 
+                                                            <?php echo $data['action_name']; ?> 
                                                         </span>
                                                     </td>
                                                     <th class="td-btn">
                                                         <?php if($can_view){ ?>
-                                                        <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("departments/view/$rec_id"); ?>">
+                                                        <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("role_permissions/view/$rec_id"); ?>">
                                                             <i class="fa fa-eye"></i> View
                                                         </a>
                                                         <?php } ?>
                                                         <?php if($can_edit){ ?>
-                                                        <a class="btn btn-sm btn-info has-tooltip" title="Edit This Record" href="<?php print_link("departments/edit/$rec_id"); ?>">
+                                                        <a class="btn btn-sm btn-info has-tooltip" title="Edit This Record" href="<?php print_link("role_permissions/edit/$rec_id"); ?>">
                                                             <i class="fa fa-edit"></i> Edit
                                                         </a>
                                                         <?php } ?>
                                                         <?php if($can_delete){ ?>
-                                                        <a class="btn btn-sm btn-danger has-tooltip record-delete-btn" title="Delete this record" href="<?php print_link("departments/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
+                                                        <a class="btn btn-sm btn-danger has-tooltip record-delete-btn" title="Delete this record" href="<?php print_link("role_permissions/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                             <i class="fa fa-times"></i>
                                                             Delete
                                                         </a>
@@ -263,7 +246,7 @@ $show_pagination = $this->show_pagination;
                                             <div class="col-md-auto justify-content-center">    
                                                 <div class="p-3 d-flex justify-content-between">    
                                                     <?php if($can_delete){ ?>
-                                                    <button data-prompt-msg="Are you sure you want to delete these records?" data-display-style="modal" data-url="<?php print_link("departments/delete/{sel_ids}/?csrf_token=$csrf_token&redirect=$current_page"); ?>" class="btn btn-sm btn-danger btn-delete-selected d-none">
+                                                    <button data-prompt-msg="Are you sure you want to delete these records?" data-display-style="modal" data-url="<?php print_link("role_permissions/delete/{sel_ids}/?csrf_token=$csrf_token&redirect=$current_page"); ?>" class="btn btn-sm btn-danger btn-delete-selected d-none">
                                                         <i class="fa fa-times"></i> Delete Selected
                                                     </button>
                                                     <?php } ?>

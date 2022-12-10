@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("attende_codes/add");
+$can_edit = ACL::is_allowed("attende_codes/edit");
+$can_view = ACL::is_allowed("attende_codes/view");
+$can_delete = ACL::is_allowed("attende_codes/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "list-page-" . random_str();
@@ -26,10 +33,12 @@ $show_pagination = $this->show_pagination;
                     <h4 class="record-title">Attende Codes</h4>
                 </div>
                 <div class="col-sm-3 ">
+                    <?php if($can_add){ ?>
                     <a  class="btn btn btn-primary my-1" href="<?php print_link("attende_codes/add") ?>">
                         <i class="fa fa-plus"></i>                              
                         Add New Attende Codes 
                     </a>
+                    <?php } ?>
                 </div>
                 <div class="col-sm-4 ">
                     <form  class="search" action="<?php print_link('attende_codes'); ?>" method="get">
@@ -107,12 +116,14 @@ $show_pagination = $this->show_pagination;
                                     <table class="table  table-striped table-sm text-left">
                                         <thead class="table-header bg-light">
                                             <tr>
+                                                <?php if($can_delete){ ?>
                                                 <th class="td-checkbox">
                                                     <label class="custom-control custom-checkbox custom-control-inline">
                                                         <input class="toggle-check-all custom-control-input" type="checkbox" />
                                                         <span class="custom-control-label"></span>
                                                     </label>
                                                 </th>
+                                                <?php } ?>
                                                 <th class="td-sno">#</th>
                                                 <th  class="td-id"> Id</th>
                                                 <th  class="td-code"> Code</th>
@@ -136,16 +147,18 @@ $show_pagination = $this->show_pagination;
                                             $counter++;
                                             ?>
                                             <tr>
+                                                <?php if($can_delete){ ?>
                                                 <th class=" td-checkbox">
                                                     <label class="custom-control custom-checkbox custom-control-inline">
                                                         <input class="optioncheck custom-control-input" name="optioncheck[]" value="<?php echo $data['id'] ?>" type="checkbox" />
                                                             <span class="custom-control-label"></span>
                                                         </label>
                                                     </th>
+                                                    <?php } ?>
                                                     <th class="td-sno"><?php echo $counter; ?></th>
                                                     <td class="td-id"><a href="<?php print_link("attende_codes/view/$data[id]") ?>"><?php echo $data['id']; ?></a></td>
                                                     <td class="td-code">
-                                                        <span  data-value="<?php echo $data['code']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['code']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("attende_codes/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="code" 
@@ -155,12 +168,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['code']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-code_type_id">
-                                                        <span  data-value="<?php echo $data['code_type_id']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['code_type_id']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("attende_codes/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="code_type_id" 
@@ -170,12 +183,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="number" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['code_type_id']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-start_time">
-                                                        <span  data-value="<?php echo $data['start_time']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['start_time']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("attende_codes/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="start_time" 
@@ -185,12 +198,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="time" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['start_time']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-end_time">
-                                                        <span  data-value="<?php echo $data['end_time']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['end_time']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("attende_codes/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="end_time" 
@@ -200,12 +213,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="time" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['end_time']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-created_at">
-                                                        <span  data-value="<?php echo $data['created_at']; ?>" 
+                                                        <span <?php if($can_edit){ ?> data-value="<?php echo $data['created_at']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("attende_codes/editfield/" . urlencode($data['id'])); ?>" 
                                                             data-name="created_at" 
@@ -215,12 +228,12 @@ $show_pagination = $this->show_pagination;
                                                             data-type="text" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['created_at']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-updated_at">
-                                                        <span  data-flatpickr="{ minDate: '', maxDate: ''}" 
+                                                        <span <?php if($can_edit){ ?> data-flatpickr="{ minDate: '', maxDate: ''}" 
                                                             data-value="<?php echo $data['updated_at']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("attende_codes/editfield/" . urlencode($data['id'])); ?>" 
@@ -231,21 +244,27 @@ $show_pagination = $this->show_pagination;
                                                             data-type="flatdatetimepicker" 
                                                             data-mode="popover" 
                                                             data-showbuttons="left" 
-                                                            class="is-editable" >
+                                                            class="is-editable" <?php } ?>>
                                                             <?php echo $data['updated_at']; ?> 
                                                         </span>
                                                     </td>
                                                     <th class="td-btn">
+                                                        <?php if($can_view){ ?>
                                                         <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("attende_codes/view/$rec_id"); ?>">
                                                             <i class="fa fa-eye"></i> View
                                                         </a>
+                                                        <?php } ?>
+                                                        <?php if($can_edit){ ?>
                                                         <a class="btn btn-sm btn-info has-tooltip" title="Edit This Record" href="<?php print_link("attende_codes/edit/$rec_id"); ?>">
                                                             <i class="fa fa-edit"></i> Edit
                                                         </a>
+                                                        <?php } ?>
+                                                        <?php if($can_delete){ ?>
                                                         <a class="btn btn-sm btn-danger has-tooltip record-delete-btn" title="Delete this record" href="<?php print_link("attende_codes/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                             <i class="fa fa-times"></i>
                                                             Delete
                                                         </a>
+                                                        <?php } ?>
                                                     </th>
                                                 </tr>
                                                 <?php 
@@ -275,9 +294,11 @@ $show_pagination = $this->show_pagination;
                                         <div class="row justify-content-center">    
                                             <div class="col-md-auto justify-content-center">    
                                                 <div class="p-3 d-flex justify-content-between">    
+                                                    <?php if($can_delete){ ?>
                                                     <button data-prompt-msg="Are you sure you want to delete these records?" data-display-style="modal" data-url="<?php print_link("attende_codes/delete/{sel_ids}/?csrf_token=$csrf_token&redirect=$current_page"); ?>" class="btn btn-sm btn-danger btn-delete-selected d-none">
                                                         <i class="fa fa-times"></i> Delete Selected
                                                     </button>
+                                                    <?php } ?>
                                                     <div class="dropup export-btn-holder mx-1">
                                                         <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fa fa-save"></i> Export

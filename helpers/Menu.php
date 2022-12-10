@@ -187,9 +187,25 @@ class Menu{
 			'path' => 'users', 
 			'label' => 'Users', 
 			'icon' => ''
+		),
+		
+		array(
+			'path' => 'role_permissions', 
+			'label' => 'Role Permissions', 
+			'icon' => ''
 		)
 	);
 		
 	
 	
+			public static $name = array(
+		array(
+			"value" => "Administrator", 
+			"label" => "Administrator", 
+		),
+		array(
+			"value" => "User", 
+			"label" => "User", 
+		),);
+		
 }

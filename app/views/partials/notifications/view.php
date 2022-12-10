@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("notifications/add");
+$can_edit = ACL::is_allowed("notifications/edit");
+$can_view = ACL::is_allowed("notifications/view");
+$can_delete = ACL::is_allowed("notifications/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -48,7 +55,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-id">
                                         <th class="title"> Id: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['id']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['id']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="id" 
@@ -58,7 +65,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['id']; ?> 
                                             </span>
                                         </td>
@@ -66,7 +73,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-type">
                                         <th class="title"> Type: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['type']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['type']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="type" 
@@ -76,7 +83,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['type']; ?> 
                                             </span>
                                         </td>
@@ -84,7 +91,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-notifiable_type">
                                         <th class="title"> Notifiable Type: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['notifiable_type']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['notifiable_type']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="notifiable_type" 
@@ -94,7 +101,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['notifiable_type']; ?> 
                                             </span>
                                         </td>
@@ -102,7 +109,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-notifiable_id">
                                         <th class="title"> Notifiable Id: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['notifiable_id']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['notifiable_id']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="notifiable_id" 
@@ -112,7 +119,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['notifiable_id']; ?> 
                                             </span>
                                         </td>
@@ -120,7 +127,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-data">
                                         <th class="title"> Data: </th>
                                         <td class="value">
-                                            <span  data-pk="<?php echo $data['id'] ?>" 
+                                            <span <?php if($can_edit){ ?> data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="data" 
                                                 data-title="Enter Data" 
@@ -129,7 +136,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="textarea" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['data']; ?> 
                                             </span>
                                         </td>
@@ -137,7 +144,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-read_at">
                                         <th class="title"> Read At: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['read_at']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['read_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="read_at" 
@@ -147,7 +154,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['read_at']; ?> 
                                             </span>
                                         </td>
@@ -155,7 +162,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-created_at">
                                         <th class="title"> Created At: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['created_at']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['created_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="created_at" 
@@ -165,7 +172,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['created_at']; ?> 
                                             </span>
                                         </td>
@@ -173,7 +180,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-updated_at">
                                         <th class="title"> Updated At: </th>
                                         <td class="value">
-                                            <span  data-flatpickr="{ minDate: '', maxDate: ''}" 
+                                            <span <?php if($can_edit){ ?> data-flatpickr="{ minDate: '', maxDate: ''}" 
                                                 data-value="<?php echo $data['updated_at']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("notifications/editfield/" . urlencode($data['id'])); ?>" 
@@ -184,7 +191,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="flatdatetimepicker" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['updated_at']; ?> 
                                             </span>
                                         </td>
@@ -221,12 +228,16 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("notifications/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
+                                                <?php if($can_delete){ ?>
                                                 <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("notifications/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                     <i class="fa fa-times"></i> Delete
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }
