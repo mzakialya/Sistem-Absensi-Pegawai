@@ -9,5 +9,5 @@ Permasalahan timbul saat sebagian besar pegawai tidak jujur dalam mengisi absen 
 - composer install
 - php artisan migrate
 - php artisan db:seed
-- php artisan key;generate
+- php artisan key:generate
 - php artisan serve
